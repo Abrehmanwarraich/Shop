@@ -8,6 +8,7 @@ import Login from './components/login';
 import Signup from './components/Signup';
 import Productsview from './components/productsview';
 import Addtocart from './components/addtocart';
+import Productform from './components/productsform';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <NAV />
         <Routes >
           <Route path="/" element={< Home />} />
+          <Route path="admin" element={< Productform />} />
           < Route path="blogs" element={< Blogs />} />
           < Route path="contact" element={< Contact />} />
           < Route path="login" element={< Login />} />
