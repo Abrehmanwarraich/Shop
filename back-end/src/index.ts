@@ -22,8 +22,8 @@ const upload = multer({
   }),
 });
 
-// API Endpoint to handle form submissions
-app.post('/api/products', upload.single('file'), async (req, res) => {
+// ------------------------api post product from productsform---------------
+app.post('/products', upload.single('file'), async (req, res) => {
   const { name, category, price, description } = req.body;
   const file = req.file ? req.file.path : null;
 
@@ -42,6 +42,33 @@ app.post('/api/products', upload.single('file'), async (req, res) => {
     res.status(500).json({ error: 'An error occurred while uploading the product.' });
   }
 });
+// ------------------------api get product to home---------------
+app.get('/products', async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (err) {
+    const error = err as Error; // Type assertion
+    res.status(500).json({ message: error.message });
+  }
+});
+// ----------------------------api get prduct by id to productview-----------
+app.get('/products/:id', getProductById);
+async function getProductById(req: Request, res: Response) {
+  const { id } = req.params;
+
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.json(product);
+  } catch (err) {
+    const error = err as Error; // Type assertion
+    res.status(500).json({ message: error.message });
+  }
+}
+
 
 const startServer = async () => {
   await connectDB();

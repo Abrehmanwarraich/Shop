@@ -33,8 +33,8 @@ const upload = (0, multer_1.default)({
         },
     }),
 });
-// API Endpoint to handle form submissions
-app.post('/api/products', upload.single('file'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// ------------------------api post product from productsform---------------
+app.post('/products', upload.single('file'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, category, price, description } = req.body;
     const file = req.file ? req.file.path : null;
     try {
@@ -52,6 +52,35 @@ app.post('/api/products', upload.single('file'), (req, res) => __awaiter(void 0,
         res.status(500).json({ error: 'An error occurred while uploading the product.' });
     }
 }));
+// ------------------------api get product to home---------------
+app.get('/products', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const products = yield schema_model_1.default.find();
+        res.json(products);
+    }
+    catch (err) {
+        const error = err; // Type assertion
+        res.status(500).json({ message: error.message });
+    }
+}));
+// ----------------------------api get prduct by id to productview-----------
+app.get('/products/:id', getProductById);
+function getProductById(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { id } = req.params;
+        try {
+            const product = yield schema_model_1.default.findById(id);
+            if (!product) {
+                return res.status(404).json({ message: 'Product not found' });
+            }
+            res.json(product);
+        }
+        catch (err) {
+            const error = err; // Type assertion
+            res.status(500).json({ message: error.message });
+        }
+    });
+}
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, db_1.default)();
     app.listen(3001, () => {
