@@ -1,10 +1,12 @@
 // src/redux/store.tsx
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import productReducer from './productSlice-reducer';
+import cartReducer from './addtocart-reducer';
 
 const store = configureStore({
   reducer: {
     product: productReducer,
+    cart: cartReducer,
   },
 });
 

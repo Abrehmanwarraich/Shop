@@ -4,6 +4,7 @@ import multer from 'multer';
 import connectDB from './db';
 import Product from './schema-model'; // Correctly import the Product model
 
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -17,7 +18,9 @@ const upload = multer({
       cb(null, "imagesupload/");
     },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + "-" + file.originalname);
+      // cb(null, Date.now() + "-" + file.originalname);
+      cb(null, Date.now() + '-' + file.originalname);
+
     },
   }),
 });
@@ -25,7 +28,7 @@ const upload = multer({
 // ------------------------api post product from productsform---------------
 app.post('/products', upload.single('file'), async (req, res) => {
   const { name, category, price, description } = req.body;
-  const file = req.file ? req.file.path : null;
+  const file = req.file ? req.file.filename : null;
 
   try {
     const product = new Product({

@@ -1,6 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { RootState } from './redux/store';
 
 function NAV() {
+    const cartItems = useSelector((state: RootState) => state.cart.items);
+    // console.log(cartItems);
+
     return (
         <>
             <header className="text-gray-600 body-font">
@@ -41,7 +46,9 @@ function NAV() {
                                 className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
                                 to={"addtocart"}
                             >
-                                <span className="absolute top-1 left-1 flex h-3 w-3 items-center justify-center rounded-full border bg-red-700 text-sm font-medium text-white shadow sm:-top-2 sm:-right-2">1</span>
+                                <span className="absolute top-1 left-1 flex h-3 w-3 items-center justify-center rounded-full border bg-red-700 text-sm font-medium text-black shadow sm:-top-2 sm:-right-2">
+                                    {cartItems.length}
+                                </span>
                                 <img
                                     src="../../images/bag.jpg"
                                     alt="bag pic"

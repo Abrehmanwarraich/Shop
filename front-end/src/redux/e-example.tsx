@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, incrementByAmount } from './createslice-reducers';
+import { increment, decrement, incrementByAmount } from './e-createslice-reducers';
 import { RootState } from './store';
 function App() {
   const count = useSelector((state: RootState) => state.product);

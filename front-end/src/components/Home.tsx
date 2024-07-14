@@ -49,7 +49,7 @@ const Home: React.FC = () => {
                   className="block relative h-48 rounded overflow-hidden"
                 >
                   <img
-                    alt={product.name}
+                    alt={product.file}
                     className="object-cover object-center w-full h-full block"
                     src={`http://localhost:3001/${product.file}`} // Use product image or fallback image
                   />

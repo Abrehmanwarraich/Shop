@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { addToCart } from '../redux/addtocart-reducer';
+import { useDispatch } from 'react-redux';
 
 // Define the Product type
 interface Product {
@@ -17,6 +19,7 @@ const Productsview: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
   const getProduct = async () => {
     try {
@@ -34,6 +37,12 @@ const Productsview: React.FC = () => {
     getProduct();
   }, [id]);
 
+  const submitId = () => {
+    if (product) {
+      dispatch(addToCart(product._id));
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -46,7 +55,7 @@ const Productsview: React.FC = () => {
               <img
                 alt={product.name}
                 className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-                src={product.file}
+                src={`http://localhost:3001/${product.file}`}
               />
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
@@ -92,7 +101,7 @@ const Productsview: React.FC = () => {
                   <span className="title-font font-medium text-2xl text-gray-900">
                     ${product.price.toFixed(2)}
                   </span>
-                  <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                  <button onClick={submitId} className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                     Add To Cart
                   </button>
                 </div>
