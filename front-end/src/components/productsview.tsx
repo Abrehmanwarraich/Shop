@@ -38,8 +38,10 @@ const Productsview: React.FC = () => {
   }, [id]);
 
   const submitId = () => {
-    if (product) {
-      dispatch(addToCart(product._id));
+    if (product && id) {
+      dispatch(addToCart(id));
+    } else {
+      console.error('Product or ID is undefined');
     }
   };
 

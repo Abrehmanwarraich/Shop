@@ -46,13 +46,13 @@ function NAV() {
                                 className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
                                 to={"addtocart"}
                             >
-                                <span className="absolute top-1 left-1 flex h-3 w-3 items-center justify-center rounded-full border bg-red-700 text-sm font-medium text-black shadow sm:-top-2 sm:-right-2">
+                                <span className="absolute top-1 left-1 flex h-3 w-3 items-center justify-center rounded-full border bg-red-700 text-sm font-medium text-white shadow sm:-top-2 sm:-right-2">
                                     {cartItems.length}
                                 </span>
                                 <img
                                     src="../../images/bag.jpg"
                                     alt="bag pic"
-                                    className="w-8 h-8 text-white "
+                                    className="w-8 h-8 mt-4 md:mt-0 text-white "
                                 />
                             </NavLink>
                         </div>
